@@ -1,0 +1,18 @@
+.ctnCircle {
+  display: flex;
+  justify-content: center;
+  width: 536px;
+  height: 621px;
+  align-items: center;
+}
+
+.circle {
+  width: 530px;
+  height: 530px;
+  border: 1px solid black;
+  border-radius: 100%;
+}
+
+.button {
+  z-index: 1000;
+}

@@ -1,11 +1,15 @@
 import React from 'react';
 import { MainPageLayout } from '../ui/main-page-layout';
-import { useNavigate } from 'react-router-dom';
+import { Title } from '@/features/title';
+import { Circle } from '@/features/circle';
+import { CountYear } from '@/features/count-year';
 
 export function MainPage() {
   return (
-    <MainPageLayout>
-      <div>privet</div>
-    </MainPageLayout>
+    <MainPageLayout
+      title={<Title text="Исторические даты" />}
+      circle={<Circle />}
+      count={<CountYear />}
+    />
   );
 }

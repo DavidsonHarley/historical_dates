@@ -1,60 +1,79 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: "./src/app/index.tsx", // Входная точка
+  entry: './src/app/index.tsx', // Входная точка
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "bundle.[contenthash].js", // Хеширование для кэширования
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.[contenthash].js', // Хеширование для кэширования
     clean: true, // Очистка папки dist перед сборкой
-    publicPath: "/", // Для корректных путей в SPA
+    publicPath: '/', // Для корректных путей в SPA
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"], // Автоматическое разрешение расширений
+    extensions: ['.tsx', '.ts', '.js'], // Автоматическое разрешение расширений
     alias: {
-      "@": path.resolve(__dirname, "src"),
-      "@app": path.resolve(__dirname, "src/app"),
+      '@': path.resolve(__dirname, 'src'),
+      '@app': path.resolve(__dirname, 'src/app'),
     },
   },
   module: {
     rules: [
-      // TypeScript + Babel
+      {
+        test: /\.module\.s[ac]ss$/i,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[name][local][hash:base64:5]',
+              },
+            },
+          },
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        exclude: /\.module\.s[ac]ss$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: "babel-loader",
+        use: 'babel-loader',
       },
       // CSS
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
       // Изображения
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: "asset/resource",
+        type: 'asset/resource',
       },
       // Шрифты
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: "asset/resource",
+        type: 'asset/resource',
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./public/index.html", // Шаблон HTML
-      favicon: "./public/favicon.ico", // Иконка
+      template: './public/index.html', // Шаблон HTML
+      favicon: './public/favicon.ico', // Иконка
     }),
   ],
   devServer: {
     static: {
-      directory: path.join(__dirname, "dist"),
+      directory: path.join(__dirname, 'dist'),
       watch: true,
     },
     historyApiFallback: {
       disableDotRule: true,
-      htmlAcceptHeaders: ["text/html"],
+      htmlAcceptHeaders: ['text/html'],
     },
     client: {
       overlay: {

@@ -1,0 +1,15 @@
+.ctnCount {
+  display: flex;
+  position: absolute;
+  gap: 4.2rem;
+  max-width: 973px;
+  width: 100%;
+  top: 230px;
+  right: 230px;
+}
+
+.count {
+  font-weight: 700;
+  line-height: 160px;
+  font-size: 200px;
+}
